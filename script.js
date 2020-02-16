@@ -2,10 +2,14 @@
 // REALLY GOOD CODE
 
 var numOfElements = 2000
-var margin = 80
+var margin = 40
+var fuzzyEdge1 = 1
+var fuzzyEdge2 = 10
 var divSize = 2.5
 var tries = 20
 var spaceBetween = 1
+
+var bandwidth = 75
 
 var main = document.getElementById("main")
 var windowWidth = window.innerWidth
@@ -16,10 +20,11 @@ for (let i = 0; i < numOfElements; i++) {
 
     var divPosition = tryFindSpace()
     if (divPosition) {
-        gridPositions.push(divPosition)
+        id = `circle${i}`
+        gridPositions.push({...divPosition, id})
         var elem = document.createElement("div")
         elem.classList.add('myClass')
-        elem.id = `circle${i}`
+        elem.id = id
         var style = `top: ${divPosition.top}px;
             left: ${divPosition.left}px;
             width: ${divPosition.size}px;
@@ -36,11 +41,9 @@ console.log(gridPositions);
 function tryFindSpace() {
     for (let i = tries; i > 0; i--) {
         var position = createRandomPosition(i/tries)
-        var divfits = divFits(position)
-        if (divfits){
+        if (divFits(position) && !divTouchesEdge(position)){
             return position
         }
-        // console.log(i)
     }
     return null
 }
@@ -48,7 +51,9 @@ function tryFindSpace() {
 function createRandomPosition (sizeFactor) {
     var size = Math.random() * (sizeFactor * divSize * 25) + 10
     var top = Math.random() * (windowHeight - margin*2) + margin
+    top += (Math.random() - 0.5) * windowHeight * fuzzyEdge1 / 50
     var left = Math.random() * (windowWidth - margin*2) + margin
+    left += (Math.random() - 0.5) * windowWidth * fuzzyEdge1 / 50
     
     return {
         size: Math.round(size),
@@ -62,27 +67,60 @@ function divFits (divPosition) {
         return true
     }
     var itDoesntFit = gridPositions.some((position) => {
-        return divsOverlap(divPosition, position) ||
-        divTouchesEdge(divPosition)
+        return divsOverlap(divPosition, position)
     })
     return !itDoesntFit
 }
 
 function divsOverlap(pos1, pos2){
-    var xDist = Math.abs(pos1.left - pos2.left)
-    var yDist = Math.abs(pos1.top - pos2.top)
-    var distance = Math.sqrt(xDist*xDist + yDist*yDist)
-
+    var distance = findDistance(pos1, pos2)
     if (distance - spaceBetween <= pos1.size/2 + pos2.size/2){
-       return true
+        return true
     }
 }
 
 function divTouchesEdge(pos){
+    var rand = (Math.random() - 0.5) * fuzzyEdge2 * 50
     if(
-        pos.top < pos.size/2 ||
-        pos.top > windowHeight - pos.size/2 ||
-        pos.left < pos.size/2 ||
-        pos.left > windowWidth - pos.size/2
-    ){return true}
+        pos.top < margin + pos.size/2 + rand ||
+        pos.top > windowHeight - margin - pos.size/2 + rand ||
+        pos.left < margin + pos.size/2 + rand ||
+        pos.left > windowWidth - margin - pos.size/2 + rand
+    ) {true}
 }
+
+function findDistance(pos1, pos2){
+    var xDist = Math.abs(pos1.left - pos2.left)
+    var yDist = Math.abs(pos1.top - pos2.top)
+    return Math.sqrt(xDist*xDist + yDist*yDist)
+}
+
+let repaintSlower = 9
+let enableMouseCall = true
+let firstTime = true
+document.addEventListener('mousemove', function(e){
+    if(firstTime){
+        repaintAtSlowness(1,0)
+        firstTime = false
+    }
+
+    let rand = Math.floor(Math.random()*repaintSlower)
+    repaintAtSlowness(repaintSlower, rand)
+
+    function repaintAtSlowness(slowness, startPoint){
+        for (let i = startPoint; i < gridPositions.length; i += slowness) {
+            var pos = gridPositions[i]
+            var distance = findDistance({left: e.x, top: e.y}, pos) 
+                + (Math.random()-0.5)*100
+            var factor = Math.floor(distance / bandwidth) - 1
+            document.getElementById(pos.id).setAttribute('band','band' + factor)
+        }
+    }
+})
+
+
+
+
+
+// im gonna learn to type with my left hand
+// tho that ^ was typed with two

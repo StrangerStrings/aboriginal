@@ -19,5 +19,57 @@ body{
     position: absolute;
     border-radius: 50%;
     transform: translate(-50%, -50%);
+    background-color: hsl(273, 9%, 50%);
+    transition: background-color 0.9s ease-out, height 0.4s linear, width 0.4s linear;
+}
+
+.drawnOn{
+    background-color: rgb(28, 14, 30);
+}
+
+[band='band-2']{
+    background-color: rgb(255, 237, 237);
+    /* height: 10px !important; */
+    /* width: 10px !important */
+}
+[band='band-1']{
+    background-color: rgb(255, 237, 237);
+    /* height: 15px !important; */
+    /* width: 15px !important */
+}
+[band='band0']{
     background-color: pink;
+}
+[band='band1']{
+    background-color: pink;
+}
+[band='band2']{
+    background-color: hsl(0, 100%, 50%);
+}
+[band='band3']{
+    background-color: hsl(332, 100%, 36%);
+}
+[band='band4']{
+    background-color: hsl(300, 100%, 25%);
+}
+[band='band5']{
+    background-color: hsl(273, 100%, 36%);
+}
+[band='band6']{
+    background-color: hsl(232, 71%, 30%);
+}
+[band='band7']{
+    background-color: hsl(217, 50%, 25%);
+}
+[band='band8']{
+    background-color: hsl(217, 30%, 15%);
+}
+[band='band9']{
+    background-color: hsl(217, 30%, 15%);
+}
+[band='band10']{
+    background-color: hsl(218, 17%, 27%);
+}
+[band='band11']{
+    background-color: hsl(218, 17%, 27%);
 }
