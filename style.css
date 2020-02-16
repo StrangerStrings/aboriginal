@@ -23,10 +23,6 @@ body{
     transition: background-color 0.9s ease-out, height 0.4s linear, width 0.4s linear;
 }
 
-.drawnOn{
-    background-color: rgb(28, 14, 30);
-}
-
 [band='band-2']{
     background-color: rgb(255, 237, 237);
     /* height: 10px !important; */
@@ -71,5 +67,43 @@ body{
     background-color: hsl(218, 17%, 27%);
 }
 [band='band11']{
+    background-color: hsl(218, 17%, 27%);
+}
+
+.drawnOn{
+    background-color: rgb(28, 14, 30);
+}
+[band='band5'].drawnOn{
+    background-color: hsl(232, 71%, 30%);
+}
+[band='band6'].drawnOn{
+    background-color: hsl(232, 71%, 30%);
+}
+[band='band7'].drawnOn{
+    background-color: hsl(232, 71%, 30%);
+}
+[band='band8'].drawnOn{
+    background-color: hsl(217, 50%, 25%);
+}
+[band='band9'].drawnOn{
+    background-color: hsl(217, 30%, 15%);
+}
+[band='band10'].drawnOn{
+    background-color: hsl(217, 30%, 15%);
+}
+[band='band11'].drawnOn{
+    background-color: hsl(217, 30%, 15%);
+}
+
+[band='band12'].drawnOn{
+    background-color: hsl(218, 17%, 27%);
+}
+[band='band13'].drawnOn{
+    background-color: hsl(218, 17%, 27%);
+} 
+[band='band14'].drawnOn{
+    background-color: hsl(218, 17%, 27%);
+}
+[band='band15'].drawnOn{
     background-color: hsl(218, 17%, 27%);
 }

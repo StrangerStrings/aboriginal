@@ -5,11 +5,11 @@ var numOfElements = 2000
 var margin = 40
 var fuzzyEdge1 = 1
 var fuzzyEdge2 = 10
-var divSize = 2.5
+var divSize = 2
 var tries = 20
 var spaceBetween = 1
 
-var bandwidth = 75
+var bandwidth = 100
 
 var main = document.getElementById("main")
 var windowWidth = window.innerWidth
@@ -96,8 +96,10 @@ function findDistance(pos1, pos2){
 }
 
 let repaintSlower = 9
-let enableMouseCall = true
+let clickAllowed = true
 let firstTime = true
+let brushRadius = 20
+let brushTracking = 50
 document.addEventListener('mousemove', function(e){
     if(firstTime){
         repaintAtSlowness(1,0)
@@ -114,6 +116,25 @@ document.addEventListener('mousemove', function(e){
                 + (Math.random()-0.5)*100
             var factor = Math.floor(distance / bandwidth) - 1
             document.getElementById(pos.id).setAttribute('band','band' + factor)
+        }
+    }
+
+    if (e.buttons != 0) {
+        if (clickAllowed){
+            clickAllowed = false
+            setTimeout(() => clickAllowed = true, brushTracking)
+            for (let i = 0; i < gridPositions.length; i ++) {
+                var pos = gridPositions[i]
+                var distance = findDistance({left: e.x, top: e.y}, pos)
+                if (distance  <= brushRadius + pos.size/3){
+                    var elem = document.getElementById(pos.id)
+                    console.log(e)
+                    elem.classList.add('drawnOn')
+                    if(e.shiftKey){
+                        elem.classList.remove('drawnOn')
+                    }
+                }
+            }
         }
     }
 })
