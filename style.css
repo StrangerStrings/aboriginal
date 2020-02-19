@@ -1,6 +1,3 @@
-body{
-    color: whitesmoke;
-}
 *{
     margin: 0;
     padding:0;
@@ -14,29 +11,20 @@ body{
 }
 
 
-
-.myClass{
+.circle{
     position: absolute;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     background-color: hsl(273, 9%, 50%);
-    transition: background-color 0.9s ease-out, height 0.4s linear, width 0.4s linear;
+    transition: background-color 0.9s ease-out;
+    -webkit-user-drag: none;
 }
 
-[band='band-2']{
+
+[band='band-1'], [band='band-2']{
     background-color: rgb(255, 237, 237);
-    /* height: 10px !important; */
-    /* width: 10px !important */
 }
-[band='band-1']{
-    background-color: rgb(255, 237, 237);
-    /* height: 15px !important; */
-    /* width: 15px !important */
-}
-[band='band0']{
-    background-color: pink;
-}
-[band='band1']{
+[band='band0'], [band='band1']{
     background-color: pink;
 }
 [band='band2']{
@@ -57,53 +45,13 @@ body{
 [band='band7']{
     background-color: hsl(217, 50%, 25%);
 }
-[band='band8']{
+[band='band8'], [band='band9']{
     background-color: hsl(217, 30%, 15%);
 }
-[band='band9']{
-    background-color: hsl(217, 30%, 15%);
-}
-[band='band10']{
-    background-color: hsl(218, 17%, 27%);
-}
-[band='band11']{
+[band='band10'], [band='band11']{
     background-color: hsl(218, 17%, 27%);
 }
 
 .drawnOn{
-    background-color: rgb(28, 14, 30);
-}
-[band='band5'].drawnOn{
-    background-color: hsl(232, 71%, 30%);
-}
-[band='band6'].drawnOn{
-    background-color: hsl(232, 71%, 30%);
-}
-[band='band7'].drawnOn{
-    background-color: hsl(232, 71%, 30%);
-}
-[band='band8'].drawnOn{
-    background-color: hsl(217, 50%, 25%);
-}
-[band='band9'].drawnOn{
-    background-color: hsl(217, 30%, 15%);
-}
-[band='band10'].drawnOn{
-    background-color: hsl(217, 30%, 15%);
-}
-[band='band11'].drawnOn{
-    background-color: hsl(217, 30%, 15%);
-}
-
-[band='band12'].drawnOn{
-    background-color: hsl(218, 17%, 27%);
-}
-[band='band13'].drawnOn{
-    background-color: hsl(218, 17%, 27%);
-} 
-[band='band14'].drawnOn{
-    background-color: hsl(218, 17%, 27%);
-}
-[band='band15'].drawnOn{
-    background-color: hsl(218, 17%, 27%);
+    background-color: black;
 }
