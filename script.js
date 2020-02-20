@@ -8,23 +8,25 @@ const placementAttempts = 20
 const divSize = 2
 const spaceBetween = 2
 const margin = 40
-const originalBandwidth = 100
+const originalBandwidth = 90
 const blankCanvas = false
 
 // -- 2. onMouseMove
 const repaintSlowness = 9
-const brushRadius = 20
+const brushRadius = 30
 const brushTracking = 50
 
 // operational variables
 const windowWidth = window.innerWidth
 const windowHeight = window.innerHeight
 let GridPositions = []
+let idCount = 0
+let DOMCircles = []
 let bandwidth = originalBandwidth
 let clickAllowed = true
 let firstTime = true
 
-MakeCanvasWithCircles();
+MakeCanvasWithCircles()
 
 document.addEventListener('mousemove', function(e){
     if(firstTime){
@@ -36,6 +38,7 @@ document.addEventListener('mousemove', function(e){
     const rand2 = Math.round(Math.random()-0.3 * 4) + repaintSlowness
     repaintRainbow(rand2, rand, e)
 
+    // mouse pressed
     if (e.buttons != 0) {
         if (clickAllowed){
             bandwidth = originalBandwidth*1.5
@@ -45,11 +48,11 @@ document.addEventListener('mousemove', function(e){
                 const pos = GridPositions[i]
                 const distance = findDistance({left: e.x, top: e.y}, pos)
                 if (distance  <= brushRadius + pos.size/3){
-                    const elem = document.getElementById(pos.id)
+
                     if (blankCanvas ? !e.shiftKey : e.shiftKey){
-                        elem.classList.remove('drawnOn')
+                        DOMCircles[i].classList.remove('drawnOn')
                     }else{
-                        elem.classList.add('drawnOn')
+                        DOMCircles[i].classList.add('drawnOn')
                     }
                 }
             }
@@ -58,13 +61,13 @@ document.addEventListener('mousemove', function(e){
     else {bandwidth = originalBandwidth}
 })
 
-function repaintRainbow(slowness, startPoint, cursor){
-    for (let i = startPoint; i < GridPositions.length; i += slowness) {
+function repaintRainbow(incrementor, startPoint, cursor){
+    for (let i = startPoint; i < GridPositions.length; i += incrementor) {
         const pos = GridPositions[i]
         const distance = findDistance({left: cursor.x, top: cursor.y}, pos) 
             + (Math.random()-0.5)*100
-        const factor = Math.floor(distance / bandwidth) - 1
-        document.getElementById(pos.id).setAttribute('band','band' + factor)
+        const factor = Math.floor(distance / bandwidth)
+        DOMCircles[i].setAttribute('band','band' + factor)
     }
 }
 
@@ -75,8 +78,6 @@ function findDistance(pos1, pos2){
 }
 
 
-
-
 // inital circles placement functions till end of file
 function MakeCanvasWithCircles() {
     const main = document.getElementById("main")
@@ -84,22 +85,21 @@ function MakeCanvasWithCircles() {
     
         const divPosition = createCircleFindSpace()
         if (divPosition) {
-            id = `circle${i}`
-            GridPositions.push({...divPosition, id})
+            GridPositions.push(divPosition)
             const elem = document.createElement("div")
             elem.classList.add('circle', blankCanvas && 'drawnOn')
-            elem.id = id
-            const style = `top: ${divPosition.top}px;
+            elem.style.cssText = `
+                top: ${divPosition.top}px;
                 left: ${divPosition.left}px;
                 width: ${divPosition.size}px;
                 height: ${divPosition.size}px;
             `
-            elem.style.cssText = style;
             main.appendChild(elem)
+            idCount++
         }
-    }
 
-    console.log(GridPositions);
+    }
+    DOMCircles = document.getElementsByClassName('circle')
 }
 
 function createCircleFindSpace() {
