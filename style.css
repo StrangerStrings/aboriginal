@@ -21,34 +21,34 @@
 }
 
 
-[band='band-1'], [band='band0']{
+[band='-1'], [band='0']{
     background-color: rgb(255, 237, 237);
 }
-[band='band1'], [band='band2']{
+[band='1'], [band='2']{
     background-color: pink;
 }
-[band='band3']{
+[band='3']{
     background-color: hsl(0, 100%, 50%);
 }
-[band='band4']{
+[band='4']{
     background-color: hsl(332, 100%, 36%);
 }
-[band='band5']{
+[band='5']{
     background-color: hsl(300, 100%, 25%);
 }
-[band='band6']{
+[band='6']{
     background-color: hsl(273, 100%, 36%);
 }
-[band='band7']{
+[band='7']{
     background-color: hsl(232, 71%, 30%);
 }
-[band='band8']{
+[band='8']{
     background-color: hsl(217, 50%, 25%);
 }
-[band='band9'], [band='band10']{
+[band='9'], [band='10']{
     background-color: hsl(217, 30%, 15%);
 }
-[band='band11'], [band='band12']{
+[band='11'], [band='12']{
     background-color: hsl(218, 17%, 27%);
 }
 
